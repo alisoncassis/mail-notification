@@ -10,9 +10,9 @@ const smtpConfig = {
 };
 
 const emails = [
-  'alisoncassisn@gmail.com',
-  'vinicius.toquetti@gmail.com',
-  'pedrocarvalhosanjos@gmail.com',
+  process.env.EMAIL_ALISON,
+  process.env.EMAIL_PEDRO,
+  process.env.EMAIL_VINICIUS,
 ];
 
 const textMessage = body => {
