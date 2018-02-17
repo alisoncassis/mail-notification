@@ -11,21 +11,21 @@ const smtpConfig = {
 
 const emails = [
   process.env.EMAIL_ALISON,
-  // process.env.EMAIL_PEDRO,
-  // process.env.EMAIL_VINICIUS,
+  process.env.EMAIL_PEDRO,
+  process.env.EMAIL_VINICIUS,
 ];
 
 const textMessage = body => {
-    return `Olá senhores!
+  return `Olá senhores!
 
-Teve uma solicitação no Seuvet com os seguintes dados:
-${JSON.stringify(body)}
+  Teve uma solicitação no Seuvet com os seguintes dados:
+  ${JSON.stringify(body)}
 
 
-Atenciosamente,
+  Atenciosamente,
 
-Seuvet`;
-  };
+  Seuvet`;
+};
 
 const transporter = nodemailer.createTransport(smtpConfig);
 
