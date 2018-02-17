@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post('/notificate', (req, res) => {
+  console.log(req.body);
   mailService.send({ body: JSON.parse(req.body) });
   res.status(200).send();
 });
