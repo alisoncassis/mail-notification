@@ -11,8 +11,8 @@ const smtpConfig = {
 
 const emails = [
   process.env.EMAIL_ALISON,
-  process.env.EMAIL_PEDRO,
-  process.env.EMAIL_VINICIUS,
+  // process.env.EMAIL_PEDRO,
+  // process.env.EMAIL_VINICIUS,
 ];
 
 const textMessage = body => {

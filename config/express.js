@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post('/notificate', (req, res) => {
-  mailService.send({ body: req.body });
+  mailService.send({ body: JSON.parse(req.body) });
   res.status(200).send();
 });
 
