@@ -19,7 +19,7 @@ const textMessage = body => {
     return `Olá senhores!
 
 Teve uma solicitação no Seuvet com os seguintes dados:
-${JSON.stringify(body)}
+${body}
 
 
 Atenciosamente,
