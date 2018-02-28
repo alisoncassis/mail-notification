@@ -36,6 +36,7 @@ const MailService = {
       to: emails.join(),
       subject: 'Seuvet - solicitação',
       text: textMessage(data.body),
+      priority: 'high',
     };
 
     return transporter.sendMail(message)
