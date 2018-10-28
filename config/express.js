@@ -13,7 +13,12 @@ app.use(bodyParser.json());
 app.get('/policy', (req, res) => res.sendFile(path.join(__dirname, '../static/privacy_policy.html')));
 
 app.post('/autonomous-user', (req, res) => {
-    mailService.send({ body: req.body });
+    mailService.send({ body: req.body, type: 'newUser' });
+    res.status(200).send();
+});
+
+app.post('/contact-us', (req, res) => {
+    mailService.send({ body: req.body, type: 'contactUs' });
     res.status(200).send();
 });
 

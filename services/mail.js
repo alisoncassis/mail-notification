@@ -11,21 +11,37 @@ const smtpConfig = {
 
 const emails = [
     process.env.EMAIL1,
-    process.env.EMAIL2,
-    process.env.EMAIL3,
+    // process.env.EMAIL2,
+    // process.env.EMAIL3,
 ];
 
-const textMessage = body => {
+const subjects = {
+  newUser: 'SeuVet - solicitação novo usuário',
+  contactUs: 'SeuVet - mensagem via Fale Conosco',
+}
+
+const textMessage = {
+  newUser: body => {
     return `Olá equipe!
 
-  Teve uma solicitação de novo usuário no SeuVet com os seguintes dados:
-  ${JSON.stringify(body)}
+    Teve uma solicitação de novo usuário no SeuVet com os seguintes dados:
+    ${JSON.stringify(body)}
 
+    Atenciosamente,
 
-  Atenciosamente,
+    SeuVet`;
+  },
+  contactUs: body => {
+    return `Olá equipe!
 
-  SeuVet`;
-};
+    Teve uma mensagem via Fale Conosco no SeuVet com os seguintes dados:
+    ${JSON.stringify(body)}
+
+    Atenciosamente,
+
+    SeuVet`;
+  }
+}
 
 const transporter = nodemailer.createTransport(smtpConfig);
 
@@ -34,8 +50,8 @@ const MailService = {
         const message = {
             from: smtpConfig.auth.user,
             to: emails.join(),
-            subject: 'SeuVet - solicitação novo usuário',
-            text: textMessage(data.body),
+            subject: subjects[data.type],
+            text: textMessage[data.type](data.body),
             priority: 'high',
         };
 
