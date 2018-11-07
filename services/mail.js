@@ -13,6 +13,7 @@ const emails = [
     process.env.EMAIL1,
     process.env.EMAIL2,
     process.env.EMAIL3,
+    process.env.EMAIL4,
 ];
 
 const subjects = {
