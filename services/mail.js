@@ -23,7 +23,7 @@ const subjects = {
 }
 
 const textMessage = {
-    notifytTeamOfNewUser: body => {
+    notifytTeamOfNewUser: ({ body, env }) => {
         return `Olá equipe!
 
     Teve uma solicitação de novo usuário no SeuVet com os seguintes dados:
@@ -33,7 +33,7 @@ const textMessage = {
 
     SeuVet`;
     },
-    contactUs: body => {
+    contactUs: ({ body, env }) => {
         return `Olá equipe!
 
     Teve uma mensagem via Fale Conosco no SeuVet com os seguintes dados:
@@ -43,12 +43,12 @@ const textMessage = {
 
     SeuVet`;
     },
-    sendConfirmationMailToUser: body => {
+    sendConfirmationMailToUser: ({ body, env }) => {
         return `Olá ${body.firstName}!
 
     Clique no link abaixo para confirmarmos o seu email, e em seguida aproveite o melhor sistema do setor Veterinário!
 
-    ${generateConfirmationUrl(body)}
+    ${generateConfirmationUrl({ body, env })}
 
     Atenciosamente,
 
@@ -65,7 +65,7 @@ const MailService = {
             from: smtpConfig.auth.user,
             to: internal ? emails.join() : body.email,
             subject: subjects[type],
-            text: textMessage[type](body),
+            text: textMessage[type]({ body, env }),
             priority: 'high',
         };
 
