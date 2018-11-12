@@ -1,29 +1,30 @@
 const nodemailer = require('nodemailer');
-const smtpConfig = {
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: process.env.EMAIL_SECURE,
+const { generateConfirmationUrl } = require('../utils/urls')
+const smtpConfiguration = env => ({
+    host: env === 'prod' ? process.env.EMAIL_HOST : process.env.HOMOLOG_EMAIL_HOST,
+    port: env === 'prod' ? process.env.EMAIL_PORT : process.env.HOMOLOG_EMAIL_PORT,
+    secure: env === 'prod' ? process.env.EMAIL_SECURE : process.env.HOMOLOG_EMAIL_SECURE,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: env === 'prod' ? process.env.EMAIL_USER : process.env.HOMOLOG_EMAIL_USER,
+        pass: env === 'prod' ? process.env.EMAIL_PASS : process.env.HOMOLOG_EMAIL_PASS,
     },
-};
+})
 
 const emails = [
     process.env.EMAIL1,
     process.env.EMAIL2,
     process.env.EMAIL3,
-    process.env.EMAIL4,
 ];
 
 const subjects = {
-  newUser: 'SeuVet - solicitação novo usuário',
-  contactUs: 'SeuVet - mensagem via Fale Conosco',
+    notifytTeamOfNewUser: 'SeuVet - solicitação novo usuário',
+    contactUs: 'SeuVet - mensagem via Fale Conosco',
+    sendConfirmationMailToUser: 'SeuVet - Confirmação de email',
 }
 
 const textMessage = {
-  newUser: body => {
-    return `Olá equipe!
+    notifytTeamOfNewUser: body => {
+        return `Olá equipe!
 
     Teve uma solicitação de novo usuário no SeuVet com os seguintes dados:
     ${JSON.stringify(body)}
@@ -31,9 +32,9 @@ const textMessage = {
     Atenciosamente,
 
     SeuVet`;
-  },
-  contactUs: body => {
-    return `Olá equipe!
+    },
+    contactUs: body => {
+        return `Olá equipe!
 
     Teve uma mensagem via Fale Conosco no SeuVet com os seguintes dados:
     ${JSON.stringify(body)}
@@ -41,18 +42,30 @@ const textMessage = {
     Atenciosamente,
 
     SeuVet`;
-  }
+    },
+    sendConfirmationMailToUser: body => {
+        return `Olá ${body.firstName}!
+
+    Clique no link abaixo para confirmarmos o seu email, e em seguida aproveite o melhor sistema do setor Veterinário!
+
+    ${generateConfirmationUrl(body)}
+
+    Atenciosamente,
+
+    SeuVet`;
+    }
 }
 
-const transporter = nodemailer.createTransport(smtpConfig);
 
 const MailService = {
-    send: data => {
+    send: ({ body, type, internal, env }) => {
+        const smtpConfig = smtpConfiguration(env)
+        const transporter = nodemailer.createTransport(smtpConfig);
         const message = {
             from: smtpConfig.auth.user,
-            to: emails.join(),
-            subject: subjects[data.type],
-            text: textMessage[data.type](data.body),
+            to: internal ? emails.join() : body.email,
+            subject: subjects[type],
+            text: textMessage[type](body),
             priority: 'high',
         };
 

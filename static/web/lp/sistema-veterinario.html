@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>sistema veterinario</title>
+  </head>
+  <body>
+    <h2 style="text-align: center">Estamos confirmando seus dados, aguarde um instante</h2>
+  </body>
+  <script type="text/javascript">
+    var origin = window.location.origin
+    var obj = {
+      url: 'https://seuvet-web.herokuapp.com/auto-login',
+      prod: true
+    }
+    if(origin.indexOf('localhost') !== -1) {
+      obj.url = 'http://localhost:8081/auto-login'
+      obj.prod = false
+    }
+    if(origin.indexOf('homolog-seuvet') !== -1) {
+      obj.url = 'https://homolog-seuvet-web.herokuapp.com/auto-login'
+      obj.prod = false
+    }
+    //usar o ibj prod para trigar o adwords
+    setTimeout(() => {
+      window.location.href = url
+    }, 2000)
+  </script>
+</html>
