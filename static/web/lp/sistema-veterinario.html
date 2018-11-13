@@ -5,25 +5,43 @@
     <meta charset="utf-8">
     <meta name=viewport content="width=device-width,initial-scale=1">
     <title>sistema veterinario</title>
+    <!-- Global site tag (gtag.js) - Google Ads: 793233932 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-793233932"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'AW-793233932');
+    </script>
+    <script type="text/javascript">
+        var origin = window.location.origin
+        var obj = {
+            url: 'https://seuvet-web.herokuapp.com/auto-login',
+            prod: true
+        }
+        if (origin.indexOf('localhost') !== -1) {
+            obj.url = 'http://localhost:8081/auto-login'
+            obj.prod = false
+        }
+        if (origin.indexOf('homolog-seuvet') !== -1) {
+            obj.url = 'https://homolog-seuvet-web.herokuapp.com/auto-login'
+            obj.prod = false
+        }
+        if (obj.prod) {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-793233932/W9clCO3Q3YwBEIyUn_oC'
+            });
+        }
+    </script>
 </head>
 
 <body>
     <h2 style="text-align: center">Estamos confirmando seus dados, aguarde um instante</h2>
 </body>
 <script type="text/javascript">
-    var origin = window.location.origin
-    var obj = {
-        url: 'https://seuvet-web.herokuapp.com/auto-login',
-        prod: true
-    }
-    if (origin.indexOf('localhost') !== -1) {
-        obj.url = 'http://localhost:8081/auto-login'
-        obj.prod = false
-    }
-    if (origin.indexOf('homolog-seuvet') !== -1) {
-        obj.url = 'https://homolog-seuvet-web.herokuapp.com/auto-login'
-        obj.prod = false
-    }
     //usar o obj prod para trigar o adwords
     setTimeout(() => {
         window.location.href = obj.url

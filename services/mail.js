@@ -19,6 +19,7 @@ const emails = [
 const subjects = {
     notifytTeamOfNewUser: 'SeuVet - solicitação novo usuário',
     contactUs: 'SeuVet - mensagem via Fale Conosco',
+    errorReport: 'SeuVet - mensagem via Reporte de erros',
     sendConfirmationMailToUser: 'SeuVet - Confirmação de email',
 }
 
@@ -37,6 +38,16 @@ const textMessage = {
         return `Olá equipe!
 
     Teve uma mensagem via Fale Conosco no SeuVet com os seguintes dados:
+    ${JSON.stringify(body)}
+
+    Atenciosamente,
+
+    SeuVet`;
+    },
+    errorReport: ({ body, env }) => {
+        return `Olá equipe!
+
+    Teve uma mensagem via Report de erro no SeuVet com os seguintes dados:
     ${JSON.stringify(body)}
 
     Atenciosamente,
